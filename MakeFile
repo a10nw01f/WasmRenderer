@@ -1,0 +1,18 @@
+CC=em++
+CFLAGS=--bind --std=c++14
+WASMFLAGS=-s EXPORTED_RUNTIME_METHODS=[addOnPostRun] -s WASM=1 -s USE_WEBGL2=1  -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0
+SRC= \
+wasm/exports.cpp \
+wasm/Game/Game.cpp \
+wasm/Graphics/GLSLProgram.cpp \
+wasm/Graphics/Camera3D.cpp \
+wasm/Resources/ParseObj.cpp \
+wasm/Graphics/Mesh.cpp \
+wasm/Graphics/Texture.cpp \
+wasm/Graphics/Shaders.cpp \
+wasm/Graphics/EnvironmentBaker.cpp \
+wasm/Math/Math.cpp \
+wasm/Graphics/ShadowMapRenderer.cpp
+
+hellomake: $(SRC)
+	$(CC) $(CFLAGS) $(SRC) $(WASMFLAGS) -o public/game.js -g4 -I ./wasm
